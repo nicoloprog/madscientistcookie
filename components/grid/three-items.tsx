@@ -22,12 +22,13 @@ function ThreeItemGridItem({
     >
       <Link
         className="relative block aspect-square h-full w-full"
-        href={`/product/${item.handle}`}
+        href={`/search`}
         prefetch={true}
       >
         <GridTileImage
           src={item.featuredImage.url}
           fill
+          className="object-cover "
           sizes={
             size === "full"
               ? "(min-width: 768px) 66vw, 100vw"
@@ -35,12 +36,12 @@ function ThreeItemGridItem({
           }
           priority={priority}
           alt={item.title}
-          label={{
-            position: size === "full" ? "center" : "bottom",
-            title: item.title as string,
-            amount: item.priceRange.maxVariantPrice.amount,
-            currencyCode: item.priceRange.maxVariantPrice.currencyCode,
-          }}
+          // label={{
+          //   position: size === "full" ? "center" : "bottom",
+          //   title: item.title as string,
+          //   amount: item.priceRange.maxVariantPrice.amount,
+          //   currencyCode: item.priceRange.maxVariantPrice.currencyCode,
+          // }}
         />
       </Link>
     </div>
