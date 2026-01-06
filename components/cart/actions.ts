@@ -14,15 +14,26 @@ import { redirect } from "next/navigation";
 
 export async function addItem(
   prevState: any,
-  selectedVariantId: string | undefined
+  formData: FormData | string | undefined
 ) {
+  // Handle both direct string ID (bound) or FormData
+  let selectedVariantId: string | undefined;
+
+  if (formData instanceof FormData) {
+    selectedVariantId = formData.get("merchandiseId") as string;
+  } else {
+    selectedVariantId = formData;
+  }
+
   if (!selectedVariantId) {
-    return "Error adding item to cart";
+    return "Error adding item to cart: Missing product ID";
   }
 
   try {
     await addToCart([{ merchandiseId: selectedVariantId, quantity: 1 }]);
-    revalidateTag(TAGS.cart, "max");
+    // Revalidate the cart tag to ensure all cart components refresh
+    revalidateTag(TAGS.cart);
+    return "Successfully added to cart";
   } catch (e) {
     return "Error adding item to cart";
   }
@@ -42,7 +53,7 @@ export async function removeItem(prevState: any, merchandiseId: string) {
 
     if (lineItem && lineItem.id) {
       await removeFromCart([lineItem.id]);
-      revalidateTag(TAGS.cart, "max");
+      revalidateTag(TAGS.cart);
     } else {
       return "Item not found in cart";
     }
@@ -84,11 +95,10 @@ export async function updateItemQuantity(
         ]);
       }
     } else if (quantity > 0) {
-      // If the item doesn't exist in the cart and quantity > 0, add it
       await addToCart([{ merchandiseId, quantity }]);
     }
 
-    revalidateTag(TAGS.cart, "max");
+    revalidateTag(TAGS.cart);
   } catch (e) {
     console.error(e);
     return "Error updating item quantity";
@@ -97,10 +107,13 @@ export async function updateItemQuantity(
 
 export async function redirectToCheckout() {
   let cart = await getCart();
-  redirect(cart!.checkoutUrl);
+  if (cart?.checkoutUrl) {
+    redirect(cart.checkoutUrl);
+  }
 }
 
 export async function createCartAndSetCookie() {
   let cart = await createCart();
-  (await cookies()).set("cartId", cart.id!);
+  const cookieStore = await cookies();
+  cookieStore.set("cartId", cart.id!);
 }

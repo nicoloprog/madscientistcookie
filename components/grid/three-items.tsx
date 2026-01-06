@@ -21,14 +21,14 @@ function ThreeItemGridItem({
       }
     >
       <Link
-        className="relative block aspect-square h-full w-full"
+        className="relative block aspect-square h-full w-full rounded-lg"
         href={`/search`}
         prefetch={true}
       >
         <GridTileImage
           src={item.featuredImage.url}
           fill
-          className="object-cover "
+          className="object-cover rounded-lg"
           sizes={
             size === "full"
               ? "(min-width: 768px) 66vw, 100vw"
