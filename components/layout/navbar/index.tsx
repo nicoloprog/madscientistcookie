@@ -16,10 +16,15 @@ export async function Navbar() {
   return (
     <div
       className={`
-    absolute top-6 px-10 md:px-0 md:top-12 md:left-40 z-50 w-full
-    ${sansitaSwashed.className}
-    flex items-center justify-between
-  `}
+  relative
+  py-6
+  md:absolute md:top-12 md:left-40
+  md:top-6
+  px-10 md:px-0
+  z-50 w-full
+  ${sansitaSwashed.className}
+  flex items-center justify-between
+`}
     >
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
