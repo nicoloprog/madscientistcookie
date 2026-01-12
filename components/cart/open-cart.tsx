@@ -9,7 +9,7 @@ export default function OpenCart({
   quantity?: number;
 }) {
   return (
-    <div className="relative flex h-15 w-15 items-center justify-center rounded-md border border-neutral-200 text-white">
+    <div className="relative flex h-14 w-14 items-center justify-center rounded-md border border-neutral-200 text-white">
       <ShoppingCartIcon
         className={clsx(
           "h-6 md:h-6 transition-all ease-in-out hover:scale-110"
