@@ -14,7 +14,7 @@ export async function HeroSection() {
         <img
           src="/hero.png"
           alt="MadScientistCookie bakery interior desktop"
-          className="hidden h-full w-full object-cover md:block"
+          className="hidden h-full w-full object-fill md:block"
         />
         <div className="absolute inset-x-0 bottom-0 h-screen bg-gradient-to-t from-black/55 to-transparent" />
       </div>
@@ -74,8 +74,32 @@ export async function HeroSection() {
 
       {/* Side fades */}
       <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-black/70 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-0 md:w-300 bg-gradient-to-r from-black/90 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-black/70 to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 w-0 md:w-200 bg-gradient-to-r from-black/70 to-transparent" />
+
+      <div
+        className="
+    pointer-events-none 
+    absolute 
+    inset-x-0 
+    top-0 
+    w-full 
+    h-[45svh] lg:h-[30svh] 
+    bg-gradient-to-t from-transparent to-black/90
+    z-[3]
+  "
+      />
+      <div
+        className="
+    pointer-events-none 
+    absolute 
+    inset-x-0 
+    bottom-0 
+    w-full 
+    h-[45svh] lg:h-[20svh] 
+    bg-gradient-to-b from-transparent to-black/80 
+    z-[3]
+  "
+      />
     </section>
   );
 }
