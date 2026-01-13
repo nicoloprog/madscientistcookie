@@ -38,36 +38,50 @@ export async function HeroSection() {
     group
     relative
     inline-flex
-    rounded-md
+    rounded-lg
     bg-[#9E5A2B]
-    px-8 py-3 md:px-12 md:py-4
+    px-8 py-3 md:px-10 md:py-5 md:left-2
     text-lg md:text-2xl
     font-semibold
-    text-white
+    text-neutral-100
     transition-transform
-    duration-200
+    duration-800
     ease-out
-    hover:-translate-y-[7px]
+    hover:-translate-y-[8px]
   "
           >
+            <span
+              className="
+      pointer-events-none
+      absolute
+      inset-x-3
+      bottom-[-11px]
+      h-3
+      rounded-full
+      bg-black/95
+      blur-md
+      opacity-100
+      group-hover:opacity-00
+    "
+            />
             {/* Bottom shadow (stays in place) */}
             <span
               className="
       pointer-events-none
       absolute
       inset-x-3
-      bottom-[-12px]
-      h-3
+      bottom-[-20px]
+      h-5
       rounded-full
       bg-black/95
       blur-md
       opacity-0
       transition-opacity
-      duration-200
-      group-hover:opacity-900
+      duration-500
+      group-hover:opacity-1000
     "
             />
-            Shop Now
+            Start Shopping
           </Link>
         </div>
       </div>

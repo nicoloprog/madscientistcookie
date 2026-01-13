@@ -48,7 +48,7 @@ export async function Navbar() {
                   <Link
                     href={item.path}
                     prefetch={true}
-                    className="text-neutral-500 underline-offset-3 hover:text-black hover:underline"
+                    className="text-neutral-200 underline-offset-3 hover:text-black hover:underline"
                   >
                     {item.title}
                   </Link>
