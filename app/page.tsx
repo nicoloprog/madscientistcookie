@@ -2,6 +2,8 @@ import { Carousel } from "components/carousel";
 import { ThreeItemGrid } from "components/grid/three-items";
 import { HeroSection } from "components/hero";
 import CarouselContainer from "components/carousel/carousel-container";
+import { LaboratorySection } from "components/laboratory";
+import { FeaturedImage } from "components/featuredimage";
 import Footer from "components/layout/footer";
 
 export const metadata = {
@@ -15,7 +17,9 @@ export const metadata = {
 export default function HomePage() {
   return (
     <>
+      <FeaturedImage />
       <HeroSection />
+      <LaboratorySection />
       <ThreeItemGrid />
       {/* <Carousel /> */}
       <CarouselContainer />

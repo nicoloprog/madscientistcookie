@@ -3,7 +3,7 @@ import { sansitaSwashed } from "lib/fonts";
 
 export async function HeroSection() {
   return (
-    <section className="relative h-[100svh] w-full mb-20 overflow-hidden">
+    <section className="relative h-[100svh] w-full overflow-hidden">
       {/* Background Images */}
       <div className="absolute inset-0">
         <img
