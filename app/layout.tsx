@@ -30,7 +30,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="bg-transparent text-whitedark:text-white">
+      <body className="bg-transparent overflow-x-hidden">
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>{children}</main>

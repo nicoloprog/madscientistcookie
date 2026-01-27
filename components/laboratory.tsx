@@ -18,7 +18,7 @@ export async function LaboratorySection() {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col h-full min-h-[100svh] mx-auto md:mx-30 px-6 pt-12 md:min-w-[90%]">
+      <div className="relative z-10 flex flex-col h-full min-h-[100svh] mx-auto md:mx-30 px-6 pt-12 md:pt-24 md:min-w-[90%]">
         {/* Heading */}
         <h2
           className={`${sansitaSwashed.className} text-3xl md:text-5xl lg:text-7xl text-[#c9a227] italic mb-6 md:mb-18`}
@@ -27,7 +27,7 @@ export async function LaboratorySection() {
         </h2>
 
         {/* Description text - left on mobile, centered on desktop */}
-        <p className="text-[#c9a227] text-md md:text-2xl leading-relaxed max-w-full md:min-w-[100%] lg:max-w-5xl text-left md:text-center md:mx-auto">
+        <p className="text-[#c9a227] text-md md:text-3xl leading-relaxed max-w-full md:min-w-[100%] lg:max-w-5xl text-left md:text-center md:mx-auto">
           Let&apos;s embody your beautiful ideas together, simplify the way you
           visualize your next big things. Let&apos;s embody your beautiful ideas
           together, simplify the way you visualize your next big things.

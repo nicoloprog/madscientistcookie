@@ -4,13 +4,17 @@ import React from "react";
 export function FeaturedImage() {
   return (
     <div className="absolute w-full h-[600px] md:h-[800px]">
-      {/* Main featured image - absolutely positionable */}
-      <div className="absolute top-[150.25%] left-[-65%] md:top-[182.65%] md:left-20 w-[60rem] md:w-[120rem] z-50">
-        <div className="aspect-[3/4] md:aspect-[4/3]">
+      <div className="absolute top-[150.25%] left-[0%] md:top-[227.7%] md:left-30 w-[100%] md:w-[120rem] z-50">
+        <div>
           <img
-            src="/science.png"
-            alt="Featured image"
-            className="w-full h-full object-contain"
+            src="/sciencemobile.png"
+            alt="MadScientistCookie bakery interior mobile"
+            className="w-full h-full object-cover md:hidden"
+          />
+          <img
+            src="/sciencedesktop.png"
+            alt="MadScientistCookie bakery interior desktop"
+            className="hidden w-full h-full object-contain md:block"
           />
         </div>
       </div>
