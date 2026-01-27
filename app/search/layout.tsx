@@ -12,7 +12,7 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pt-30 text-black md:flex-row dark:text-white">
+      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pt-30 md:pt-50 text-black md:flex-row dark:text-white">
         <div className="order-first w-full flex-none md:max-w-[125px]">
           <Collections />
         </div>
@@ -25,6 +25,7 @@ export default function SearchLayout({
           <FilterList list={sorting} title="Sort by" />
         </div>
       </div>
+
       <Footer />
     </>
   );

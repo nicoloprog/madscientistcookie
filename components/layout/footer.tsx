@@ -1,67 +1,73 @@
-import Link from 'next/link';
+import Link from "next/link";
+import Image from "next/image";
+import { Suspense } from "react";
+import { sansitaSwashed } from "lib/fonts";
 
-import FooterMenu from 'components/layout/footer-menu';
-import LogoSquare from 'components/logo-square';
-import { getMenu } from 'lib/shopify';
-import { Suspense } from 'react';
+import FooterMenu from "components/layout/footer-menu";
+import { getMenu } from "lib/shopify";
 
 const { COMPANY_NAME, SITE_NAME } = process.env;
 
 export default async function Footer() {
   const currentYear = new Date().getFullYear();
-  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : '');
-  const skeleton = 'w-full h-6 animate-pulse rounded-sm bg-neutral-200 dark:bg-neutral-700';
-  const menu = await getMenu('next-js-frontend-footer-menu');
-  const copyrightName = COMPANY_NAME || SITE_NAME || '';
+  const copyrightDate = 2023 + (currentYear > 2023 ? `-${currentYear}` : "");
+  const menu = await getMenu("next-js-frontend-footer-menu");
+  const copyrightName = COMPANY_NAME || SITE_NAME || "";
 
   return (
-    <footer className="text-sm text-neutral-500 dark:text-neutral-400">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-6 border-t border-neutral-200 px-6 py-12 text-sm md:flex-row md:gap-12 md:px-4 min-[1320px]:px-0 dark:border-neutral-700">
-        <div>
-          <Link className="flex items-center gap-2 text-black md:pt-1 dark:text-white" href="/">
-            <LogoSquare size="sm" />
-            <span className="uppercase">{SITE_NAME}</span>
-          </Link>
-        </div>
-        <Suspense
-          fallback={
-            <div className="flex h-[188px] w-[200px] flex-col gap-2">
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-              <div className={skeleton} />
-            </div>
-          }
+    <footer className="bg-black text-sm text-neutral-400">
+      {/* TOP FOOTER */}
+      <div className="mx-auto grid w-full max-w-7xl grid-cols-1 gap-12 border-t border-neutral-800 px-6 py-16 md:grid-cols-3 md:px-4 min-[1320px]:px-0">
+        {/* LEFT – MENU */}
+        <div
+          className={`
+            ${sansitaSwashed.className} flex justify-left md:justify-start`}
         >
-          <FooterMenu menu={menu} />
-        </Suspense>
-        <div className="md:ml-auto">
-          <a
-            className="flex h-8 w-max flex-none items-center justify-center rounded-md border border-neutral-200 bg-white text-xs text-black dark:border-neutral-700 dark:bg-black dark:text-white"
-            aria-label="Deploy on Vercel"
-            href="https://vercel.com/templates/next.js/nextjs-commerce"
-          >
-            <span className="px-3">▲</span>
-            <hr className="h-full border-r border-neutral-200 dark:border-neutral-700" />
-            <span className="px-3">Deploy</span>
-          </a>
+          <div className="w-full flex flex-row gap-58 md:gap-334">
+            <FooterMenu menu={menu} />
+            {/* RIGHT – EMPTY / FUTURE SOCIALS */}
+
+            <Image
+              src="/logomad.jpeg" // ← replace with your image path
+              alt={`${SITE_NAME} logo`}
+              width={60}
+              height={60}
+              className="object-contain opacity-90"
+              priority
+            />
+          </div>
         </div>
+
+        {/* CENTER – IMAGE */}
       </div>
-      <div className="border-t border-neutral-200 py-6 text-sm dark:border-neutral-700">
-        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-1 px-4 md:flex-row md:gap-0 md:px-4 min-[1320px]:px-0">
+      <div className="flex items-center justify-center py-6">
+        <Image
+          src="/warning.png" // ← replace with your image path
+          alt={`${SITE_NAME} logo`}
+          width={320}
+          height={220}
+          className="object-contain opacity-90"
+          priority
+        />
+      </div>
+      {/* BOTTOM BAR */}
+      <div className="border-t border-neutral-800 py-6">
+        <div className="mx-auto flex w-full max-w-7xl flex-col items-center gap-2 px-4 md:flex-row md:gap-0 min-[1320px]:px-0">
           <p>
-            &copy; {copyrightDate} {copyrightName}
-            {copyrightName.length && !copyrightName.endsWith('.') ? '.' : ''} All rights reserved.
+            © {copyrightDate} {copyrightName}
+            {copyrightName && !copyrightName.endsWith(".") ? "." : ""} All
+            rights reserved.
           </p>
-          <hr className="mx-4 hidden h-4 w-[1px] border-l border-neutral-400 md:inline-block" />
-          <p>
-            <a href="https://github.com/vercel/commerce">View the source</a>
-          </p>
+
+          <hr className="mx-4 hidden h-4 w-px border-l border-neutral-600 md:block" />
+
           <p className="md:ml-auto">
-            <a href="https://vercel.com" className="text-black dark:text-white">
-              Created by ▲ Vercel
+            <a href="#" className="transition hover:text-white">
+              Privacy Policy
+            </a>
+            <span className="mx-2">·</span>
+            <a href="#" className="transition hover:text-white">
+              Terms of Service
             </a>
           </p>
         </div>

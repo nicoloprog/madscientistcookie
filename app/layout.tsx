@@ -30,7 +30,11 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className="bg-transparent overflow-x-hidden">
+      <body
+        className=" bg-gradient-to-t
+      from-[#F2C894]
+      via-[#F2C894]/80"
+      >
         <CartProvider cartPromise={cart}>
           <Navbar />
           <main>{children}</main>
