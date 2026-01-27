@@ -47,7 +47,7 @@ export async function HeroSection() {
     transition-transform
     duration-800
     ease-out
-    hover:-translate-y-[8px]
+    hover:-translate-y-[3px]
   "
           >
             <span
@@ -55,7 +55,7 @@ export async function HeroSection() {
       pointer-events-none
       absolute
       inset-x-3
-      bottom-[-11px]
+      bottom-[-5px]
       h-3
       rounded-full
       bg-black/95
@@ -73,7 +73,7 @@ export async function HeroSection() {
       bottom-[-20px]
       h-5
       rounded-full
-      bg-black/95
+      bg-black/75
       blur-md
       opacity-0
       transition-opacity
