@@ -18,10 +18,10 @@ export async function LaboratorySection() {
       </div>
 
       {/* Content Overlay */}
-      <div className="relative z-10 flex flex-col h-full min-h-[100svh] mx-auto md:mx-30 px-6 pt-24 md:min-w-[90%]">
+      <div className="relative z-10 flex flex-col h-full min-h-[100svh] mx-auto md:mx-30 px-6 pt-12 md:min-w-[90%]">
         {/* Heading */}
         <h2
-          className={`${sansitaSwashed.className} text-2xl md:text-5xl lg:text-7xl text-[#c9a227] italic mb-6 md:mb-18`}
+          className={`${sansitaSwashed.className} text-3xl md:text-5xl lg:text-7xl text-[#c9a227] italic mb-6 md:mb-18`}
         >
           Our Laboratory
         </h2>
