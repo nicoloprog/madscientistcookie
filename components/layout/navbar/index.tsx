@@ -18,7 +18,7 @@ export async function Navbar() {
       className={`absolute md:top-12 md:inset-x-0 /* Anchors it to both sides at once */
     z-50
     w-full
-    p-7.5 md:px-42.5
+    pt-7 px-5 md:px-42.5
     ${sansitaSwashed.className}
     flex items-center justify-between 
   `}
@@ -48,7 +48,7 @@ export async function Navbar() {
                   <Link
                     href={item.path}
                     prefetch={true}
-                    className="text-neutral-200 underline-offset-3 hover:text-black hover:underline"
+                    className="text-neutral-200 underline-offset-3 hover:underline"
                   >
                     {item.title}
                   </Link>
@@ -57,17 +57,15 @@ export async function Navbar() {
             </ul>
           ) : null}
         </div>
-        <div className="flex items-center justify-end gap-6 md:gap-34">
-          <div className="hidden md:block w-64">
-            {" "}
-            {/* Fixed width for search so it doesn't jump */}
-            <Suspense fallback={<SearchSkeleton />}>
-              <Search />
-            </Suspense>
-          </div>
-          <div className="flex justify-end">
-            <CartModal />
-          </div>
+
+        <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-64">
+          <Suspense fallback={<SearchSkeleton />}>
+            <Search />
+          </Suspense>
+        </div>
+
+        <div className="flex justify-end">
+          <CartModal />
         </div>
       </div>
     </div>
