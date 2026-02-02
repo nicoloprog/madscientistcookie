@@ -36,8 +36,8 @@ export function Gallery({
         )}
 
         {images.length > 1 ? (
-          <div className="absolute bottom-[15%] flex w-full justify-center">
-            <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
+          <div className="absolute bottom-[2.5%] flex w-full justify-center">
+            <div className="mx-auto flex h-7 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur-sm dark:border-black dark:bg-neutral-900/80">
               <button
                 formAction={() => {
                   const newState = updateImage(previousImageIndex.toString());
@@ -46,7 +46,7 @@ export function Gallery({
                 aria-label="Previous product image"
                 className={buttonClassName}
               >
-                <ArrowLeftIcon className="h-5" />
+                <ArrowLeftIcon className="h-4" />
               </button>
               <div className="mx-1 h-6 w-px bg-neutral-500"></div>
               <button
@@ -57,7 +57,7 @@ export function Gallery({
                 aria-label="Next product image"
                 className={buttonClassName}
               >
-                <ArrowRightIcon className="h-5" />
+                <ArrowRightIcon className="h-4" />
               </button>
             </div>
           </div>
@@ -65,7 +65,7 @@ export function Gallery({
       </div>
 
       {images.length > 1 ? (
-        <ul className="my-12 flex items-center flex-wrap justify-center gap-2 overflow-hidden py-1 lg:mb-0">
+        <ul className="mt-10 mb-2 flex items-center flex-wrap justify-center gap-2 overflow-hidden lg:mb-0">
           {images.map((image, index) => {
             const isActive = index === imageIndex;
 

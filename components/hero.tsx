@@ -21,7 +21,7 @@ export async function HeroSection() {
 
       {/* Content */}
       <div className="relative z-10 mx-auto md:mx-30 flex h-full max-w-7xl items-end md:items-center px-6 pb-23 md:pt-80">
-        <div className=" text-white">
+        <div className=" text-gray-200">
           <h1
             className={`mb-6 ${sansitaSwashed.className} text-4xl leading-tight md:text-5xl lg:text-8xl`}
           >
@@ -43,7 +43,7 @@ export async function HeroSection() {
     px-8 py-3 md:px-10 md:py-5 md:left-2
     text-lg md:text-2xl
     font-semibold
-    text-neutral-100
+    text-gray-200
     transition-transform
     duration-800
     ease-out
