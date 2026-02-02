@@ -19,7 +19,7 @@ export default function HomePage() {
     <>
       {/* <FeaturedImage /> */}
       <HeroSection />
-      <LaboratorySection className="" />
+      <LaboratorySection />
       <ThreeItemGrid />
       {/* <Carousel /> */}
       <CarouselContainer />
