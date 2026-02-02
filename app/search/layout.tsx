@@ -13,29 +13,23 @@ export default function SearchLayout({
 }) {
   return (
     <>
-      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pt-30 md:pt-50 text-white md:flex-row ">
-        <div className="order-first w-full flex-none md:max-w-[125px]">
-          <h2
-            className={`${sansitaSwashed.className} text-3xl mt-5 md:text-5xl lg:text-7xl text-[#F9A36A] italic mb-6 md:mb-18`}
-          >
-            Where obsession is backed into every batch
-          </h2>
+      <div className="mx-auto max-w-[100%] pt-30 pb-7.5 md:mt-20 md:mb-15 md:max-w-[85%] px-4 text-left md:text-left">
+        <h2
+          className={`${sansitaSwashed.className} text-3xl md:text-4xl lg:text-5xl text-[#F9A36A] italic mb-6`}
+        >
+          Where obsession is backed into every batch
+        </h2>
 
-          {/* Description text - left on mobile, centered on desktop */}
-          <p className="text-[#F9A36A] mb-10 text-md md:text-3xl leading-relaxed max-w-full md:min-w-[100%] lg:max-w-5xl text-left md:text-center md:mx-auto">
-            Let&apos;s embody your beautiful ideas together, simplify the way
-            you visualize your next big things. Let&apos;s embody your beautiful
-            ideas together, simplify the way you visualize your next big things.
-            Let&apos;s embody your beautiful ideas together, simplify the way
-            you visualize your next big things.visualize your next big things.
-            Let&apos;s embody your beautiful ideas together, simplify the way
-            you visualize your next big things. Let&apos;s embody your beautiful
-            ideas together, simplify the way you visualize your next big
-            things.visualize your next big things. Let&apos;s embody your
-            beautiful ideas together, simplify the way you visualize your next
-            big things. Let&apos;s embody your beautiful ideas together,
-            simplify the way you visualize your next big things.
-          </p>
+        <p className="text-[#F9A36A] text-md md:text-2xl leading-relaxed">
+          Let&apos;s embody your beautiful ideas together, simplify the way you
+          visualize your next big things. Let&apos;s embody your beautiful ideas
+          together, simplify the way you visualize your next big things.
+          Let&apos;s embody your beautiful ideas together, simplify the way you
+          visualize your next big things.
+        </p>
+      </div>
+      <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pt-0  text-white md:flex-row ">
+        <div className="order-first w-full flex-none md:max-w-[100px]">
           <Collections />
         </div>
         <div className="order-last min-h-screen w-full md:order-none">
