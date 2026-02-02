@@ -24,7 +24,7 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
       skipSnaps: false,
       dragFree: false,
     },
-    [Autoplay({ delay: 5000, stopOnInteraction: false })]
+    [Autoplay({ delay: 5000, stopOnInteraction: false })],
   );
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -43,7 +43,7 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
     (index: number) => {
       if (emblaApi) emblaApi.scrollTo(index);
     },
-    [emblaApi]
+    [emblaApi],
   );
 
   const onInit = useCallback((emblaApi: any) => {
@@ -64,7 +64,7 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
       if (!isDragging) return;
 
       const scrollbar = document.querySelector(
-        ".scrollbar-track"
+        ".scrollbar-track",
       ) as HTMLElement;
       if (!scrollbar) return;
 
@@ -74,7 +74,7 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
       const targetIndex = Math.round(percentage * (scrollSnaps.length - 1));
       scrollTo(targetIndex);
     },
-    [isDragging, scrollSnaps.length, scrollTo]
+    [isDragging, scrollSnaps.length, scrollTo],
   );
 
   const handleMouseUp = useCallback(() => {
@@ -117,19 +117,13 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
               >
                 <Link
                   href={`/product/${product.handle}`}
-                  className="relative h-full w-full"
+                  className="relative h-full w-full "
                 >
                   <GridTileImage
                     alt={product.title}
-                    label={{
-                      title: product.title,
-                      amount: product.priceRange.maxVariantPrice.amount,
-                      currencyCode:
-                        product.priceRange.maxVariantPrice.currencyCode,
-                    }}
                     src={product.featuredImage?.url}
                     fill
-                    className="object-cover"
+                    className="object-cover rounded-lg"
                     sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
                   />
                 </Link>
@@ -172,7 +166,7 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
               const clickX = e.clientX - rect.left;
               const percentage = clickX / rect.width;
               const targetIndex = Math.round(
-                percentage * (scrollSnaps.length - 1)
+                percentage * (scrollSnaps.length - 1),
               );
               scrollTo(targetIndex);
             }}

@@ -4,7 +4,7 @@ import React from "react";
 export function FeaturedImage() {
   return (
     <div className="absolute w-full h-[600px] md:h-[800px]">
-      <div className="absolute top-[218%] left-[0%] md:top-[210%] md:left-25 w-[100%] md:w-[120rem] z-50">
+      <div className="absolute top-[90%] left-[0%] md:left-25 w-[100%] md:w-[120rem] z-50">
         <div>
           <img
             src="/sciencemobile.png"

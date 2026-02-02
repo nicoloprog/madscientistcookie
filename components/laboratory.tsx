@@ -1,8 +1,10 @@
 import { sansitaSwashed } from "lib/fonts";
+import { FeaturedImage } from "./featuredimage";
 
 export async function LaboratorySection() {
   return (
-    <section className="relative min-h-[100svh] w-full overflow-hidden">
+    <section className="relative min-h-[100svh] w-full">
+      <FeaturedImage />
       {/* Background Images */}
       <div className="absolute inset-0">
         <img
@@ -27,7 +29,7 @@ export async function LaboratorySection() {
         </h2>
 
         {/* Description text - left on mobile, centered on desktop */}
-        <p className="text-[#c9a227] text-md md:text-3xl leading-relaxed max-w-full md:min-w-[100%] lg:max-w-5xl text-left md:text-center md:mx-auto">
+        <p className="text-[#c9a227] text-[0.925rem] md:text-3xl leading-relaxed max-w-full md:min-w-[100%] lg:max-w-5xl text-left md:text-center md:mx-auto">
           Let&apos;s embody your beautiful ideas together, simplify the way you
           visualize your next big things. Let&apos;s embody your beautiful ideas
           together, simplify the way you visualize your next big things.
