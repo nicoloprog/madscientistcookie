@@ -3,7 +3,7 @@ import { FeaturedImage } from "./featuredimage";
 
 export async function LaboratorySection() {
   return (
-    <section className="relative min-h-[100svh] w-full">
+    <section className="relative min-h-[100svh] md:min-h-[105svh] w-full">
       <FeaturedImage />
       <div className="absolute inset-0">
         <img

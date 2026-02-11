@@ -21,14 +21,14 @@ function ThreeItemGridItem({
       }
     >
       <Link
-        className="relative block aspect-square h-full w-full rounded-lg"
-        href={`/search`}
+        className="relative block aspect-square h-full w-full rounded-lg overflow-hidden group" // Added 'overflow-hidden' and 'group'
+        href={`/product/${item.handle}`} // Note: Changed from /search to product handle for better UX
         prefetch={true}
       >
         <GridTileImage
           src={item.featuredImage.url}
           fill
-          className="object-cover rounded-lg"
+          className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105" // Added transition and scale
           sizes={
             size === "full"
               ? "(min-width: 768px) 66vw, 100vw"
@@ -36,20 +36,16 @@ function ThreeItemGridItem({
           }
           priority={priority}
           alt={item.title}
-          // label={{
-          //   position: size === "full" ? "center" : "bottom",
-          //   title: item.title as string,
-          //   amount: item.priceRange.maxVariantPrice.amount,
-          //   currencyCode: item.priceRange.maxVariantPrice.currencyCode,
-          // }}
         />
+
+        {/* Optional: Subtle Dark Overlay on Hover */}
+        <div className="absolute inset-0 bg-black/0 transition-colors duration-400 group-hover:bg-black/10" />
       </Link>
     </div>
   );
 }
 
 export async function ThreeItemGrid() {
-  // Collections that start with `hidden-*` are hidden from the search page.
   const homepageItems = await getCollectionProducts({
     collection: "hidden-homepage-featured-items",
   });

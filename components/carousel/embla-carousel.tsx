@@ -4,9 +4,8 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Autoplay from "embla-carousel-autoplay";
 import useEmblaCarousel from "embla-carousel-react";
 import { Product } from "lib/shopify/types";
-import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { GridTileImage } from "../grid/tile";
 
 interface EmblaCarouselProps {
@@ -14,13 +13,17 @@ interface EmblaCarouselProps {
 }
 
 export default function EmblaCarousel({ products }: EmblaCarouselProps) {
-  // Purposefully duplicating products to make the carousel loop and not run out of products on wide screens.
-  const carouselProducts = [...products, ...products, ...products];
+  // Memoize duplicated products to prevent recalculation on every render
+  const carouselProducts = useMemo(
+    () => [...products, ...products, ...products],
+    [products],
+  );
 
+  // Initialize Embla with autoplay plugin
   const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: "start",
+      align: "center",
       skipSnaps: false,
       dragFree: false,
     },
@@ -29,58 +32,43 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
 
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
-  const [isDragging, setIsDragging] = useState(false);
 
-  const scrollPrev = useCallback(() => {
-    if (emblaApi) emblaApi.scrollPrev();
-  }, [emblaApi]);
-
-  const scrollNext = useCallback(() => {
-    if (emblaApi) emblaApi.scrollNext();
-  }, [emblaApi]);
-
+  // Navigation callbacks
+  const scrollPrev = useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
   const scrollTo = useCallback(
-    (index: number) => {
-      if (emblaApi) emblaApi.scrollTo(index);
-    },
+    (index: number) => emblaApi?.scrollTo(index),
     [emblaApi],
   );
 
-  const onInit = useCallback((emblaApi: any) => {
-    setScrollSnaps(emblaApi.scrollSnapList());
+  // Initialize scroll snaps and selection
+  const onInit = useCallback((api: any) => {
+    setScrollSnaps(api.scrollSnapList());
   }, []);
 
-  const onSelect = useCallback((emblaApi: any) => {
-    setSelectedIndex(emblaApi.selectedScrollSnap());
+  const onSelect = useCallback((api: any) => {
+    setSelectedIndex(api.selectedScrollSnap());
   }, []);
 
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  }, []);
-
-  const handleMouseMove = useCallback(
-    (e: MouseEvent) => {
-      if (!isDragging) return;
-
-      const scrollbar = document.querySelector(
-        ".scrollbar-track",
-      ) as HTMLElement;
-      if (!scrollbar) return;
-
-      const rect = scrollbar.getBoundingClientRect();
+  // Handle scrollbar click navigation
+  const handleScrollbarClick = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const rect = e.currentTarget.getBoundingClientRect();
       const clickX = e.clientX - rect.left;
       const percentage = Math.max(0, Math.min(1, clickX / rect.width));
       const targetIndex = Math.round(percentage * (scrollSnaps.length - 1));
       scrollTo(targetIndex);
     },
-    [isDragging, scrollSnaps.length, scrollTo],
+    [scrollSnaps.length, scrollTo],
   );
 
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false);
-  }, []);
+  // Calculate scrollbar thumb position
+  const thumbPosition = useMemo(() => {
+    if (scrollSnaps.length <= 1) return 0;
+    return (selectedIndex / (scrollSnaps.length - 1)) * (256 - 48);
+  }, [selectedIndex, scrollSnaps.length]);
 
+  // Setup Embla event listeners
   useEffect(() => {
     if (!emblaApi) return;
 
@@ -88,91 +76,112 @@ export default function EmblaCarousel({ products }: EmblaCarouselProps) {
     onSelect(emblaApi);
     emblaApi.on("reInit", onInit);
     emblaApi.on("select", onSelect);
+
+    return () => {
+      emblaApi.off("reInit", onInit);
+      emblaApi.off("select", onSelect);
+    };
   }, [emblaApi, onInit, onSelect]);
 
-  useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      return () => {
-        document.removeEventListener("mousemove", handleMouseMove);
-        document.removeEventListener("mouseup", handleMouseUp);
-      };
-    }
-  }, [isDragging, handleMouseMove, handleMouseUp]);
-
   return (
-    <div className="relative overflow-hidden">
-      {/* Background paint drop */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-(--breakpoint-2xl) h-full -z-1"></div>
-
+    <div className="relative overflow-hidden pt-8 md:pt-12">
       {/* Carousel Container */}
       <div className="relative w-full overflow-hidden pb-6 pt-1 mb-6 px-4">
         <div className="embla" ref={emblaRef}>
           <div className="embla__container flex">
             {carouselProducts.map((product, i) => (
-              <div
-                key={`${product.handle}${i}`}
-                className="embla__slide flex-[0_0_auto] relative aspect-square h-[30vh] max-h-[275px] w-[90%] max-w-[475px] md:w-1/3 mr-4"
-              >
-                <Link
-                  href={`/product/${product.handle}`}
-                  className="relative h-full w-full "
-                >
-                  <GridTileImage
-                    alt={product.title}
-                    src={product.featuredImage?.url}
-                    fill
-                    className="object-cover rounded-lg"
-                    sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-                  />
-                </Link>
-              </div>
+              <CarouselSlide
+                key={`${product.handle}-${i}`}
+                product={product}
+                index={i}
+              />
             ))}
           </div>
         </div>
 
         {/* Navigation Arrows */}
-        <button
-          className="hidden lg:block absolute left-8 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200 group"
+        <NavigationButton
+          direction="prev"
           onClick={scrollPrev}
-          aria-label="Previous slide"
-        >
-          <ChevronLeftIcon className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-        </button>
-
-        <button
-          className="hidden lg:block absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200 group"
+          className="left-8"
+        />
+        <NavigationButton
+          direction="next"
           onClick={scrollNext}
-          aria-label="Next slide"
-        >
-          <ChevronRightIcon className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
-        </button>
+          className="right-4"
+        />
 
         {/* Scrollbar Pagination */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 w-64 h-2 bg-white/20 rounded-full">
+        <div
+          className="absolute bottom-0 left-1/2 -translate-x-1/2 z-10 w-64 h-2 bg-white/20 rounded-full cursor-pointer"
+          onClick={handleScrollbarClick}
+          role="slider"
+          aria-valuemin={0}
+          aria-valuemax={scrollSnaps.length - 1}
+          aria-valuenow={selectedIndex}
+          aria-label="Carousel navigation"
+        >
           <div
-            className="h-full w-12 bg-[#9E5A2B] rounded-full transition-all duration-300 ease-out cursor-pointer"
-            style={{
-              transform: `translateX(${(selectedIndex / (scrollSnaps.length - 1)) * (256 - 48)}px)`,
-            }}
-            onClick={() => scrollTo(selectedIndex)}
-            aria-label="Current slide indicator"
-          />
-          <div
-            className="absolute inset-0 cursor-pointer"
-            onClick={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const clickX = e.clientX - rect.left;
-              const percentage = clickX / rect.width;
-              const targetIndex = Math.round(
-                percentage * (scrollSnaps.length - 1),
-              );
-              scrollTo(targetIndex);
-            }}
+            className="h-full w-12 bg-[#9E5A2B] rounded-full transition-all duration-300 ease-out pointer-events-none"
+            style={{ transform: `translateX(${thumbPosition}px)` }}
+            aria-hidden="true"
           />
         </div>
       </div>
     </div>
+  );
+}
+
+// Extracted slide component for better performance
+interface CarouselSlideProps {
+  product: Product;
+  index: number;
+}
+
+function CarouselSlide({ product, index }: CarouselSlideProps) {
+  return (
+    <div
+      className="embla__slide min-w-0 flex-[0_0_85%] sm:flex-[0_0_45%] md:flex-[0_0_30%] lg:flex-[0_0_25%] relative aspect-square max-h-[575px] mr-4"
+      style={{ backfaceVisibility: "hidden" }}
+    >
+      <Link
+        href={`/product/${product.handle}`}
+        className="block h-full w-full relative"
+      >
+        <GridTileImage
+          alt={product.title}
+          src={product.featuredImage?.url}
+          fill
+          className="object-cover rounded-lg"
+          sizes="(min-width: 1024px) 25vw, (min-width: 768px) 30vw, (min-width: 640px) 45vw, 85vw"
+          priority={index < 3}
+        />
+      </Link>
+    </div>
+  );
+}
+
+// Extracted navigation button component
+interface NavigationButtonProps {
+  direction: "prev" | "next";
+  onClick: () => void;
+  className?: string;
+}
+
+function NavigationButton({
+  direction,
+  onClick,
+  className,
+}: NavigationButtonProps) {
+  const Icon = direction === "prev" ? ChevronLeftIcon : ChevronRightIcon;
+
+  return (
+    <button
+      className={`hidden lg:block absolute top-1/2 -translate-y-1/2 z-10 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-full p-3 transition-all duration-200 group ${className}`}
+      onClick={onClick}
+      aria-label={`${direction === "prev" ? "Previous" : "Next"} slide`}
+    >
+      <Icon className="w-6 h-6 text-white group-hover:scale-110 transition-transform" />
+    </button>
   );
 }

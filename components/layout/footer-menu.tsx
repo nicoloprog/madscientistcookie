@@ -19,9 +19,9 @@ export function FooterMenuItem({ item }: { item: Menu }) {
       <Link
         href={item.path}
         className={clsx(
-          "block p-2 text-lg underline-offset-4 hover:text-black hover:underline md:inline-block md:text-sm dark:hover:text-neutral-300",
+          "flex justify-center p-2 text-lg underline-offset-4 hover:text-black hover:underline md:block md:text-2xl dark:hover:text-neutral-300",
           {
-            "text-gray-100": active,
+            "text-gray-100 underline": active,
           },
         )}
       >
