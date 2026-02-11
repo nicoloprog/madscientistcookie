@@ -17,15 +17,14 @@ export default function SearchLayout({
         <h2
           className={`${sansitaSwashed.className} text-3xl md:text-4xl lg:text-5xl text-[#F9A36A] italic mb-6`}
         >
-          Where obsession is backed into every batch
+          The lab collection
         </h2>
 
         <p className="text-[#F9A36A] text-md md:text-2xl leading-relaxed">
-          Let&apos;s embody your beautiful ideas together, simplify the way you
-          visualize your next big things. Let&apos;s embody your beautiful ideas
-          together, simplify the way you visualize your next big things.
-          Let&apos;s embody your beautiful ideas together, simplify the way you
-          visualize your next big things.
+          Precision texture. Gooey centers. Calculated sweetness. Zero
+          shortcuts. From brownies to cookies to crispy treats and muffins every
+          item is formulated, tested, and perfected. Not overdone. Never
+          underbuilt. Always intentional. Welcome to the experiment.
         </p>
       </div>
       <div className="mx-auto flex max-w-(--breakpoint-2xl) flex-col gap-8 px-4 pt-0  text-white md:flex-row ">
