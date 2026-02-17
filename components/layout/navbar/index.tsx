@@ -1,11 +1,9 @@
-import CartModal from "components/cart/modal";
-import LogoSquare from "components/logo-square";
 import { getMenu } from "lib/shopify";
-import { Menu } from "lib/shopify/types";
-import Link from "next/link";
 import { Suspense } from "react";
 import MobileMenu from "./mobile-menu";
 import Search, { SearchSkeleton } from "./search";
+import CartModal from "components/cart/modal";
+import { NavLinks } from "./nav-links";
 import { sansitaSwashed } from "lib/fonts";
 
 const { SITE_NAME } = process.env;
@@ -15,13 +13,13 @@ export async function Navbar() {
 
   return (
     <div
-      className={`absolute md:top-12 md:inset-x-0 /* Anchors it to both sides at once */
-    z-50
-    w-full
-    pt-7 px-5 md:px-42.5
-    ${sansitaSwashed.className}
-    flex items-center justify-between 
-  `}
+      className={`absolute md:top-12 md:inset-x-0
+      z-50
+      w-full
+      pt-7 px-5 md:px-42.5
+      ${sansitaSwashed.className}
+      flex items-center justify-between
+    `}
     >
       <div className="block flex-none md:hidden">
         <Suspense fallback={null}>
@@ -30,32 +28,9 @@ export async function Navbar() {
       </div>
 
       <div className="flex w-full items-center gap-6">
-        <div className="flex w-full ">
-          {/* <Link
-            href="/"
-            prefetch={true}
-            className="mr-2 flex w-full items-center justify-center md:w-auto lg:mr-6"
-          >
-            <LogoSquare />
-            <div className="ml-2 flex-none text-sm font-medium uppercase md:hidden lg:block">
-              {SITE_NAME}
-            </div>
-          </Link> */}
-          {menu.length ? (
-            <ul className="hidden gap-6 md:gap-12 text-sm md:text-2xl md:flex md:items-center">
-              {menu.map((item: Menu) => (
-                <li key={item.title}>
-                  <Link
-                    href={item.path}
-                    prefetch={true}
-                    className="text-neutral-200 underline-offset-3 hover:underline"
-                  >
-                    {item.title}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          ) : null}
+        <div className="flex w-full">
+          {/* Client component — receives menu as a prop, no shopify import */}
+          <NavLinks menu={menu} />
         </div>
 
         <div className="hidden md:block absolute left-1/2 -translate-x-1/2 w-64">

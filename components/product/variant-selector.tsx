@@ -41,9 +41,9 @@ export function VariantSelector({
 
   return options.map((option) => (
     <form key={option.id}>
-      <dl className="mb-8">
-        <dt className="mb-4 text-sm uppercase tracking-wide">{option.name}</dt>
-        <dd className="flex flex-wrap gap-3">
+      <dl className="mb-4">
+        <dt className="mb-2 text-sm uppercase tracking-wide">{option.name}</dt>
+        <dd className="flex flex-wrap gap-2">
           {option.values.map((value) => {
             const optionNameLowerCase = option.name.toLowerCase();
 
@@ -80,12 +80,12 @@ export function VariantSelector({
                 disabled={!isAvailableForSale}
                 title={`${option.name} ${value}${!isAvailableForSale ? " (Out of Stock)" : ""}`}
                 className={clsx(
-                  "flex min-w-[48px] items-center justify-center rounded-full border bg-neutral-100 px-2 py-1 text-sm ",
+                  "flex min-w-[58px] items-center justify-center rounded-full bg-[#9E5A2B] px-3 py-1.25 text-sm ",
                   {
-                    "cursor-default ring-2 ring-blue-600": isActive,
-                    "ring-1 ring-transparent transition duration-300 ease-in-out hover:ring-blue-600":
+                    "cursor-default ring-3 ring-black": isActive,
+                    "ring-2 ring-transparent transition duration-300 ease-in-out":
                       !isActive && isAvailableForSale,
-                    "relative z-10 cursor-not-allowed overflow-hidden bg-neutral-100 text-neutral-500 ring-1 ring-neutral-300 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-300 before:transition-transform dark:bg-neutral-900 dark:text-gray-100 dark:ring-gray-200 dark:before:bg-gray-700":
+                    "relative z-10 cursor-not-allowed overflow-hidden bg-[#9E5A2B] text-white ring-1 ring-neutral-900 before:absolute before:inset-x-0 before:-z-10 before:h-px before:-rotate-45 before:bg-neutral-900 before:transition-transform":
                       !isAvailableForSale,
                   },
                 )}

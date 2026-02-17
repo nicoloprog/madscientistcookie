@@ -21,7 +21,7 @@ export function ProductDescription({ product }: { product: Product }) {
       <VariantSelector options={product.options} variants={product.variants} />
       {product.descriptionHtml ? (
         <Prose
-          className="mb-6 text-sm leading-tight"
+          className="mb-6 text-sm md:text-lg leading-tight"
           html={product.descriptionHtml}
         />
       ) : null}
